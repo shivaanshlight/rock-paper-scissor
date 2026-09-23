@@ -1,3 +1,9 @@
+let rock = document.querySelector("#rock");
+let paper = document.querySelector("#paper");
+let scissor = document.querySelector("#scissor");
+
+let sect = document.querySelector(".sect");
+let para = document.createElement("p");
 // what will computer choose
 let computer_choice = " ";
 // make a function called getComputerChoice
@@ -51,7 +57,8 @@ function play_Round(human_choice, computer_choice) {
     human_score = human_score + 1;
     // then print the winner statement
     console.log(`You won and have ${human_score} points`);
-  } else if (human_choice == computer_choice) {
+  } //to check if it is a tie
+  else if (human_choice == computer_choice) {
     console.log("tie");
   } else {
     // update the score
@@ -61,30 +68,57 @@ function play_Round(human_choice, computer_choice) {
   }
 }
 
-// make a function which will call the round five times
-function playGame() {
-  // variable for rounds
-  let rounds = 0;
-  //   varaible to store winner
-  let winner = " ";
-  //   variable to store points of winner
-  let points = 0;
-  //   loop for five rounds
-  for (let i = 0; i < 5; i++) {
-    let human = getHumanChoice();
-    let computer = getComputerChoice();
-    play_Round(human, computer);
-    console.log(`human-choice:${human}`);
-    console.log(`computer-choice:${computer}`);
+paper.addEventListener("click", function (e) {
+  getComputerChoice();
+  play_Round("paper", computer_choice);
+  para.textContent = `
+  human choice:paper
+  computer choice :${computer_choice}
+  
+  human score:${human_score}
+  computer score:${computer_score}`;
+  sect.appendChild(para);
+  if (computer_score == 5) {
+    para.textContent = `winner is computer `;
+  } else if (human_score == 5) {
+    para.textContent = `winner is human `;
   }
-  if (human_score > computer_score) {
-    winner = "human";
-    points = human_score;
-  } else {
-    winner = "computer";
-    points = computer_score;
+});
+rock.addEventListener("click", function (e) {
+  getComputerChoice();
+  play_Round("rock", computer_choice);
+  para.textContent = `
+  human choice:rock
+  computer choice :${computer_choice}
+  
+  human score:${human_score}
+  computer score:${computer_score}`;
+  sect.appendChild(para);
+  if (computer_score == 5) {
+    para.textContent = `winner is computer `;
+  } else if (human_score == 5) {
+    para.textContent = `winner is human `;
   }
-  console.log(`winner is ${winner} with ${points}points`);
-}
+});
+scissor.addEventListener("click", function (e) {
+  getComputerChoice();
+  play_Round("scissor", computer_choice);
+  para.textContent = `
+  human choice:scissor
+  computer choice :${computer_choice}
+  
+  human score:${human_score}
+  computer score:${computer_score}`;
+  sect.appendChild(para);
+  if (computer_score == 5) {
+    para.textContent = `winner is computer `;
+    human_score = 0;
+    computer_score = 0;
+  } else if (human_score == 5) {
+    para.textContent = `winner is human `;
+    human_score = 0;
+    computer_score = 0;
+  }
+});
 
-playGame();
+// make a function which will call the round five times
